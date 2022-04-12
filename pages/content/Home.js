@@ -1,8 +1,10 @@
+import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
+import peta from '../../public/PetaSarimas.png'
 
-export default function Home() {
+function Home() {
   return (
     <div className={styles.container}>
       <Head>
@@ -19,7 +21,7 @@ export default function Home() {
           Lihat beberapa fasilitas yang ada di Perumahan Sarimas
         </p>
 
-        <image src="../public/Peta Sarimas.png" />
+        <img src={peta} alt="" />
 
         <div className={styles.grid}>
           <a href="http://localhost:3000/content/Masjid" className={styles.card}>
@@ -54,3 +56,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home ;
