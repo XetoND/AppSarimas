@@ -3,7 +3,24 @@ import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 import peta from '../../public/PetaSarimas.png'
 
-function Home() {
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch('http://66.42.54.84/api/menus')
+  const posts = await res.json()
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
+}
+
+const Home = ( {posts} )  => {
+ console.log(posts)
   return (
     <div className={styles.container}>
       <Head>
@@ -20,7 +37,7 @@ function Home() {
           Lihat beberapa fasilitas yang ada di Perumahan Sarimas
         </p>
 
-        <Image src={peta} alt="" usemap="#sarimasmap" />
+        <Image src={peta} alt="" useMap="#sarimasmap" />
         <map name="sarimasmap">
           <area shape="poly" coords="917,104,932,92,948,107,941,120,919,120" alt="posSatpam1" href="#" />
           <area shape="poly" coords="927,224,945,205,962,218,951,234" alt="warungNindi" href="#" />
@@ -38,11 +55,15 @@ function Home() {
         </map>
 
         <div className={styles.grid}>
-          <a href="http://localhost:3000/content/Masjid" className={styles.card}>
-            <h2>Masjid Al-Muhajirin</h2>
-            <p>Masjid menjadi salah satu pusat kegiatan warga yang terus kami kembangkan untuk kebutuhan ibadah umat Islam ataupun untuk kegiatan warga lainnya.</p>
-          </a>
-
+        <div>
+            {posts.map(post =>(
+              <div key={post.id}>
+                <a href="#" className={styles.card}>
+                  <h2>{post.judul}</h2>
+                </a>
+              </div>
+            ))}
+        </div>
           <a href="#" className={styles.card}>
             <h2>Posyandu Manggis</h2>
             <p>Pos Pelayanan Terpadu adalah layanan untuk Ibu dan Balita yang sudah berjalan selama beberapa waktu.</p>
@@ -70,5 +91,4 @@ function Home() {
     </div>
   )
 }
-
 export default Home ;
