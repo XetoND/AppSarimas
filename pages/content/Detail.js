@@ -2,7 +2,21 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 
-export default function Masjid() {
+export async function getServerSideProps(context){
+  const id = (parseInt(context.query.id) || 1).toString();
+  console.log("Running Server Side",id);
+  const res = await fetch('http://66.42.54.84/api/menus/'+id+"/?populate=*")
+  const posts = await res.json()
+  console.log("posts detail",posts)
+    return {
+      props: {
+        posts: posts
+      }
+    }
+}
+
+export default function Masjid(posts) {
+  console.log("post 2 ",posts.posts.data.attributes.detil_menu_list_acaras)
   return (
     <div className={styles.container}>
       <Head>
@@ -10,23 +24,28 @@ export default function Masjid() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className={styles.title}>
-      Masjid Al-Muhajirin
+      {posts.posts.data.attributes.judul}
       </h1>
       <p className={styles.description}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      {posts.posts.data.attributes.deskripsi}
       </p>
       <h1 className={styles.judul}>
-        Jadwal Ta'lim Rutin
+        Jadwal Acara
+        
       </h1>
-      <div className={styles.grids}>
-        <div className={styles.cards}>
-          <h2>Tahsin Ibu-Ibu</h2>
-          <p><br></br>Senin : <br></br><br></br>
-          09:00 - 11:30<br></br><br></br>
-          Ust. H. Syarifudin. SAg<br></br><br></br><br></br>
-          </p>
+
+      {posts && posts.posts.data.attributes.detil_menu_list_acaras.data.map(acara =>(
+        <div className={styles.grids}>
+          <div className={styles.cards}>
+            <h2>{acara.attributes.judul}</h2>
+            <p><br></br>Senin : <br></br><br></br>
+            {acara.attributes.waktu_acara}<br></br><br></br>
+            {acara.attributes.DeskripsiAcara}<br></br><br></br><br></br>
+            </p>
+          </div>
         </div>
-      </div>
+      ))}
+      
 
       <div className={styles.grids}>
         <div className={styles.cards}>
