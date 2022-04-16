@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 import peta from '../../public/PetaSarimas.png'
 import Link from 'next/link'
+import Button from '@mui/material/Button'
 
 
 export function Home({ posts }) {
@@ -80,6 +81,11 @@ export function Home({ posts }) {
             </a>
             </Link>
           ))}
+        </div>
+        <div className={styles.grid}>
+          <a className={styles.card} href="http://localhost:3000/simple-pie.html">
+          <h2>Data Umur Warga</h2>
+          </a>
         </div>
       </main>
     </div>

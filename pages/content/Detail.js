@@ -50,7 +50,7 @@ export default function Masjid(posts) {
 
       <div className={styles.button}>
       <Link href="http://localhost:3000/" passHref>
-        <Button variant="contained" color="secondary">Kembali</Button>
+        <Button variant="contained" color="info">Kembali</Button>
       </Link>
       </div>
     </div>
