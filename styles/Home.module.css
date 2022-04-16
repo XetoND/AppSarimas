@@ -65,7 +65,10 @@
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
-
+.button {
+  display: justify;
+  max-width: 100px;
+}
 .grid {
   display: flex;
   align-items: center;
@@ -125,6 +128,7 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   max-width: 300px;
+  max-height: 400px;
 }
 
 .cards h2 {

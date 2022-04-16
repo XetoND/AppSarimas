@@ -4,6 +4,7 @@ const nextConfig = {
   rewrites: async () => [
   {
     source: "/public/Map.html",
+    source: "/public/simple-pie.html",
     destination: "/pages/api/myfile.js",
   },
 ],

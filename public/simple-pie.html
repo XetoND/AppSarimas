@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Data Umur</title>
+
+    <link href="https://apexcharts.com/samples/assets/styles.css" rel="stylesheet" />
+
+    <style>
+
+        #chart {
+      padding: 0;
+      max-width: 380px;
+      margin: 35px auto;
+    }
+
+    </style>
+
+    <script>
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+        )
+      window.Promise ||
+        document.write(
+          '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+        )
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/react@16.12/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@16.12/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prop-types@15.7.2/prop-types.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-apexcharts@1.3.6/dist/react-apexcharts.iife.min.js"></script>
+
+
+    <script>
+      // Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+      // Based on https://gist.github.com/blixt/f17b47c62508be59987b
+      var _seed = 42;
+      Math.random = function() {
+        _seed = _seed * 16807 % 2147483647;
+        return (_seed - 1) / 2147483646;
+      };
+
+      async function get_data(this_data){
+        const res = await fetch('http://66.42.54.84/api/profiles/?pagination[pageSize]=10000')
+        const posts = await res.json()
+        console.log("posts detail",posts)
+        return {"posts":posts.data,"this":this_data}
+      }
+
+      function count_data(datas) {
+        let data_len = datas.length;
+        let key = [5, 15, 30]
+        let key_len = key.length;
+        let total_per_key = [0,0,0]
+        for (let i = 0; i < data_len; i++) {
+          let data = datas[i]
+          // console.log(data.id)
+          // console.log("umur",data.attributes.umur)
+
+          for (let j = 0; j < data_len; j++) {
+            if ( data.attributes.umur <= key[j]){
+              total_per_key[j] = total_per_key[j] + 1
+            }
+          }
+          // for (let x of key) {
+
+          // }
+        }
+        console.log("total_per_key",total_per_key)
+        return {"data":total_per_key,"label":key}
+      }
+    </script>
+
+
+  </head>
+
+  <body>
+
+    <div id="app"></div>
+
+    <div id="html">
+      &lt;div id=&quot;chart&quot;&gt;
+  &lt;ReactApexChart options={this.state.options} series={this.state.series} type=&quot;pie&quot; width={380} /&gt;
+&lt;/div&gt;
+    </div>
+
+    <script type="text/babel">
+
+
+
+      class ApexChart extends React.Component {
+
+        constructor(props) {
+          super(props);
+
+          this.data = [44, 55, 13, 43, 22]
+          this.lables = ['Team A1', 'Team B', 'Team C', 'Team D', 'Team E']
+          this.hayuk = "a"
+          this.state = {
+            hayuk: this.hayuk,
+            series: this.data,
+            options: {
+              chart: {
+                width: 350,
+                type: 'pie',
+              },
+              labels: this.lables,
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            },
+
+
+          };
+
+          // this.reset_data.bind(this);
+          // this.reset_data = this.reset_data.bind(this);
+          var data = get_data(this).then(function(data) {
+            console.log("data",data)
+
+            let data_log = count_data(data.posts)
+            let context = data.this
+            // this.state.hayuk = "b"
+            // this.state.hayuk = "b"
+            context.setState({
+              hayuk : "",
+              series : data_log.data,
+              options : {
+                labels:data_log.label
+              }
+            });
+          });
+        }
+
+        // reset_data = () => {
+        //   var data = get_data().then(function(data) {
+        //     console.log("data",data)
+        //     // this.state.hayuk = "b"
+        //     this.setState({
+        //       hayuk : "b"
+        //     });
+        //   });
+        // }
+        reset_data() {
+
+        }
+
+
+        render() {
+          // this.reset_data()
+          // console.log(data)
+          // var data = get_data().then(function(data) {
+          //   console.log("data",data)
+          //   this.state.hayuk = "b"
+          // });
+          // while(data.state != "fullfilled"){
+          // console.log("a",data)
+          // }
+          return (
+            <div>
+              <h1>Data Umur Sarimas</h1>
+              <div id="chart">
+                <ReactApexChart options={this.state.options} series={this.state.series} type="pie" width={380} />
+              </div>
+              <div id="html-dist"></div>
+            </div>
+          );
+        }
+      }
+
+      const domContainer = document.querySelector('#app');
+      ReactDOM.render(React.createElement(ApexChart), domContainer);
+    </script>
+
+
+  </body>
+</html>
