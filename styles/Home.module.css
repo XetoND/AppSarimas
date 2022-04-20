@@ -66,8 +66,18 @@
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
 .button {
-  display: justify;
-  max-width: 100px;
+  display: block;
+  margin: 25px;
+  float: right;
+  bottom: 0;
+  right: 0;
+  align-content: center;
+  position:fixed;
+  margin-top: 50px;
+}
+.text{
+  display: inline;
+  width: 100%;
 }
 .grid {
   display: flex;
@@ -80,13 +90,15 @@
 .card {
   margin: 1rem;
   padding: 1.5rem;
-  text-align: left;
+  text-align: center;
   color: inherit;
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  align-items: center;
+  justify-content: center;
 }
 
 .card:hover,
@@ -94,6 +106,7 @@
 .card:active {
   color: #12BB83;
   border-color: #12BB83;
+  cursor: pointer;
 }
 
 .card h2 {
@@ -109,7 +122,6 @@
 
 .grids {
   float: left;
-  display: block;
   align-items: center;
   max-width: 210px;
   flex: 1;
@@ -119,16 +131,15 @@
 }
 
 .cards {
-  background-color: #ffefc6;
+  background-color: darkslategrey;
+  font-weight: 500;
   margin: 0.5rem;
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: left;
-  color: inherit;
+  color: white;
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
-  max-width: 300px;
-  max-height: 400px;
 }
 
 .cards h2 {
@@ -139,14 +150,28 @@
 .cards p {
   margin: 0;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 18px;
+  height: calc(18px * 9);
+  overflow: hidden;
 }
-
+.btn{
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  color: black;
+}
 
 .logo {
   height: 1em;
   margin-left: 0.5rem;
 }
+
+.map{
+  cursor:pointer;
+}
+
 
 @media (max-width: 600px) {
   .grid {

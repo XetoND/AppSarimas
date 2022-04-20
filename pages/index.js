@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Home from './content/Home'
-import Axios from "axios";
-import Link from "next/link";
+import Axios from "axios"
+import Link from "next/link"
 
 export async function getServerSideProps(){
   console.log("Running Server Side");
-  const res = await fetch('http://66.42.54.84/api/menus')
+  const res = await fetch('http://66.42.54.84/api/menus/?filters[display_home]=true')
   const posts = await res.json()
   console.log("posts",posts)
     return {
