@@ -71,7 +71,8 @@ export function Home({ posts }) {
           </Link>
         </map>
       </main>
-        <div>
+      <center>
+        <div className={styles.grid}>
           {posts && posts.data.map(post =>(
             <Link key={post.id} href={{ pathname: '/content/Detail', query: { id: post.id } }}>
             <a data-key={post.id}>
@@ -80,6 +81,7 @@ export function Home({ posts }) {
             </Link>
           ))}
         </div>
+
         <div className={styles.grid}>
           <Link href={{ pathname: '../../dataUmur.html'}}>
             <h2 className={styles.card}>
@@ -87,6 +89,7 @@ export function Home({ posts }) {
             </h2>
             </Link>
         </div>
+      </center>
     </div>
     )
 }
